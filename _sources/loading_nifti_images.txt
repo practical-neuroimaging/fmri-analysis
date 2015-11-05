@@ -33,8 +33,8 @@ type::
 
     pip install --user nibabel
 
-Now try to import nibabel again.  It should work.  If it doesn't call over one
-of your instructors.
+Now try to import nibabel again.  It should work.  If it doesn't contact us and
+we will try to help.
 
 Now, download the example image we are going to use to your working directory:
 :download:`ds107_sub001_highres.nii`.
