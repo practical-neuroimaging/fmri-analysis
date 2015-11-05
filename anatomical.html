@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>An anatomical image &mdash; FMRI analysis fall 2015 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="FMRI analysis fall 2015 0.1 documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="an-anatomical-image">
+<h1>An anatomical image<a class="headerlink" href="#an-anatomical-image" title="Permalink to this headline">¶</a></h1>
+<p>Now we will work with a 3D brain image.</p>
+<p>Like the camera image in <a class="reference internal" href="camera.html"><em>The cameraman</em></a>, the pixel data for the 3D
+image is in a text file called <code class="docutils literal"><span class="pre">anatomical.txt</span></code>.  Download
+<a class="reference download internal" href="_downloads/anatomical.txt"><code class="xref download docutils literal"><span class="pre">anatomical.txt</span></code></a> to your working directory.</p>
+<p>I happen to know this image has is length 32 on the third dimension,
+but I don&#8217;t know what the size of the first two dimensions are.</p>
+<p>So, I know the image is of shape (<code class="docutils literal"><span class="pre">I</span></code>, <code class="docutils literal"><span class="pre">J</span></code>, 32), but I don&#8217;t know
+what <code class="docutils literal"><span class="pre">I</span></code> and <code class="docutils literal"><span class="pre">J</span></code> are.</p>
+<p>Here are the first four lines of <code class="docutils literal"><span class="pre">anatomical.txt</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mf">0.0000</span>
+<span class="mf">0.0000</span>
+<span class="mf">53.0000</span>
+<span class="mf">43.0000</span>
+</pre></div>
+</div>
+<p>The data is in the same floating point text format as the camera
+picture pixel data.</p>
+<p>Real all the lines of the file into an array of float values, as before.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Read the lines into an array of floats</span>
+</pre></div>
+</div>
+<p>How many pixel values does this file contain?</p>
+<p>When I have my image array correctly shaped, then, if I take a slice
+over the third dimension:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">slice_on_third</span> <span class="o">=</span> <span class="n">image_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">slice_on_third</span></code> will be shape <code class="docutils literal"><span class="pre">(I,</span> <span class="pre">J)</span></code> (the size of the first two
+dimensions).</p>
+<p>So, how many pixel values does a slice in the third dimension contain
+— given that we know the third dimension is length 32? Put another
+way, what is the value for <code class="docutils literal"><span class="pre">I</span> <span class="pre">*</span> <span class="pre">J</span></code>?</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Find the size of a slice over the third dimension</span>
+<span class="c"># P = ?</span>
+</pre></div>
+</div>
+<p>Call <code class="docutils literal"><span class="pre">P</span></code> the number of values per slice on the third dimension (so
+<code class="docutils literal"><span class="pre">P</span> <span class="pre">==</span> <span class="pre">I</span> <span class="pre">*</span> <span class="pre">J</span></code> where we don&#8217;t yet know <code class="docutils literal"><span class="pre">I</span></code> or <code class="docutils literal"><span class="pre">J</span></code>).</p>
+<p>Is this slice over the third dimension square (does <code class="docutils literal"><span class="pre">I</span> <span class="pre">==</span> <span class="pre">J</span></code>)?</p>
+<p>We need to find the values for <code class="docutils literal"><span class="pre">I</span></code> and <code class="docutils literal"><span class="pre">J</span></code>.</p>
+<p>Find candidates for <code class="docutils literal"><span class="pre">I</span></code> by using the modulus operator (<code class="docutils literal"><span class="pre">%</span></code>) to
+find a few numbers between 120 and 200 that divide exactly into the
+slice size <code class="docutils literal"><span class="pre">P</span></code>. Hint: the first value will be 120.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Make a list of candidates for I</span>
+</pre></div>
+</div>
+<p>These numbers are candidates for <code class="docutils literal"><span class="pre">I</span></code> - the first number in the pair
+<code class="docutils literal"><span class="pre">(I,</span> <span class="pre">J)</span></code>. We now need to find the corresponding <code class="docutils literal"><span class="pre">J</span></code> for each
+candidate for <code class="docutils literal"><span class="pre">I</span></code>.</p>
+<p>Use the integer division operator (<code class="docutils literal"><span class="pre">//</span></code>) to get a list of pairs of
+numbers <code class="docutils literal"><span class="pre">I</span></code> and <code class="docutils literal"><span class="pre">J</span></code> such that <code class="docutils literal"><span class="pre">I</span> <span class="pre">*</span> <span class="pre">J</span> <span class="pre">==</span> <span class="pre">P</span></code>. Hint: the first pair
+of <code class="docutils literal"><span class="pre">I,</span> <span class="pre">J</span></code> is (120, 221).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Make list of pairs of I, J such that I * J == P</span>
+</pre></div>
+</div>
+<p>The full image shape will be three values, with one of these <code class="docutils literal"><span class="pre">(I,</span>
+<span class="pre">J)</span></code> pairs followed by 32. For example, the correct shape might be
+(120, 221 , 32) (it isn&#8217;t!). Try reshaping the pixel data with a few
+of the <code class="docutils literal"><span class="pre">(I,</span> <span class="pre">J,</span> <span class="pre">32)</span></code> candidates to see which one is likely to be
+right. You might want to plot a slice over the third dimension to see
+how it looks.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Make the pixel values list into an array</span>
+<span class="c"># Try reshaping the array with candidate triples of (I, J, 32)</span>
+<span class="c"># Which I, J, 32 triple is the right one?</span>
+</pre></div>
+</div>
+<p>Finally, save your script that does the correct reshaping as <code class="docutils literal"><span class="pre">anatomical.py</span></code>
+commit to your repository, and push up to github.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FMRI analysis fall 2015</a></h1>
+
+
+
+<p class="blurb">Fall 2015</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="day2_homework.html">Homework for day 2 of analysis</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2009-2015, Matthew Brett, JB Poline.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/anatomical.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

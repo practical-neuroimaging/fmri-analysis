@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>A first go at finding brain activation &mdash; FMRI analysis fall 2015 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="FMRI analysis fall 2015 0.1 documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="a-first-go-at-finding-brain-activation">
+<h1>A first go at finding brain activation<a class="headerlink" href="#a-first-go-at-finding-brain-activation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-task-time-course">
+<h2>The task time-course<a class="headerlink" href="#the-task-time-course" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve previously had a look at the file <code class="docutils literal"><span class="pre">ds114_sub009_t2r1.nii</span></code>. This
+is a 4D FMRI image.</p>
+<p>Now we want to see whether we can detect any signal in that image relating to
+the task.</p>
+<p>The task was a block design with 10 seconds rest followed by 7 repeats of (30
+seconds when the subject thought of verbs followed by 30 seconds rest). This
+is called a &#8220;covert&#8221; task, because the subjects were thinking of verbs instead
+of saying them.</p>
+<p>Download the OpenFMRI task definition file
+<a class="reference download internal" href="_downloads/ds114_sub009_t2r1_cond.txt"><code class="xref download docutils literal"><span class="pre">ds114_sub009_t2r1_cond.txt</span></code></a>. It comes from subject 9 task 2 and run
+1 from OpenFMRI dataset <a class="reference external" href="https://openfmri.org/dataset/ds000114">https://openfmri.org/dataset/ds000114</a> .</p>
+<p>The file has one line of text per &#8220;on&#8221; block, giving the onset time of the
+block (in seconds), the duration of the block (in seconds) and the amplitude
+(expected amount of activation for this block - not used in this case).</p>
+<p>Here are the first four lines:</p>
+<div class="highlight-python"><div class="highlight"><pre>10  30.000000   1
+70  30.000000   1
+130 30.000000   1
+190 30.000000   1
+</pre></div>
+</div>
+<p>Read the file into a (number of blocks by 3) array called <code class="docutils literal"><span class="pre">task</span></code>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Read the file into an array called &quot;task&quot;.</span>
+<span class="c"># &quot;task&quot; should have 3 columns (onset, duration, amplitude)</span>
+<span class="c"># HINT: np.loadtxt</span>
+</pre></div>
+</div>
+<p>The repetition time (time to repeat, TR) for this FMRI run was 2.5 seconds. We
+need to convert the onsets and durations to TRs - so for example the first
+onset was at 10 seconds, which was the start of TR 4 (10 / 2.5).</p>
+<p>Select out the first two columns of <code class="docutils literal"><span class="pre">task</span></code>, and divide by the TR to convert
+the onset and duration times to be in terms of TRs instead of seconds:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Select first two columns and divide by TR</span>
+</pre></div>
+</div>
+<p>Our next step is to make an on-off vector that is 0 when the subject is
+doing nothing and 1 when the subject is doing the covert verb task.</p>
+<p>The vector will have one value (either 0 or 1) for each TR.</p>
+<p>First use nibabel to load the image <code class="docutils literal"><span class="pre">ds114_sub009_t2r1.nii</span></code>. Check the
+image shape to find the number of TRs.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Load the image and check the image shape to get the number of TRs</span>
+</pre></div>
+</div>
+<p>Next make a new vector called <code class="docutils literal"><span class="pre">time_course</span></code> with one entry per TR, with all
+elements in the vector being zero:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Make new zero vector</span>
+</pre></div>
+</div>
+<p>Loop over the rows in the onsets / durations array to give you an onset
+/ duration pair. For each of these pairs, set the matching positions in the
+<code class="docutils literal"><span class="pre">time_course</span></code> vector to 1. For example, the first pair will be <code class="docutils literal"><span class="pre">4,</span> <span class="pre">12</span></code>.
+That means the task started at the beginning of scan index 4, and lasted for
+12 scans. That means there should be 12 consecutive 1 values in
+<code class="docutils literal"><span class="pre">time_course</span></code>, starting at index 4. That means that index 4 + 12 = 16 should
+be zero again, because there are 12 values starting at (including 4) going up
+to (but <em>not</em> including) 16.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># - try running this if you don&#39;t believe me</span>
+<span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>So, for the first row, you will want to set <code class="docutils literal"><span class="pre">time_course[4]</span></code> through
+<code class="docutils literal"><span class="pre">time_course[15]</span></code> equal to 1.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Fill in values of 1 for positions of on blocks in time course</span>
+</pre></div>
+</div>
+<p>Plot the time course:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Plot the time course</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comparing-task-to-rest">
+<h2>Comparing task to rest<a class="headerlink" href="#comparing-task-to-rest" title="Permalink to this headline">¶</a></h2>
+<p>Make a boolean array <code class="docutils literal"><span class="pre">is_task_tr</span></code> which is True when <code class="docutils literal"><span class="pre">time_course</span></code> is
+1 and False otherwise.</p>
+<p>Make another array <code class="docutils literal"><span class="pre">is_rest_tr</span></code> that is the opposite - True when
+<code class="docutils literal"><span class="pre">time_course</span></code> is 0 and False otherwise.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Make two boolean arrays encoding task, rest</span>
+</pre></div>
+</div>
+<p>Now read the image data into an array:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Read the image data into an array.</span>
+</pre></div>
+</div>
+<p>Remember that the 4D array consists of one volume (3D array) per TR.</p>
+<p>We want to select the volumes where the time course is 1 (task volumes). Do
+this by slicing, using the boolean array you just made.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Create a new 4D array only containing the task volumes</span>
+</pre></div>
+</div>
+<p>Now select the volumes where the time course is 0 (rest volumes):</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Create a new 4D array only containing the rest volumes</span>
+</pre></div>
+</div>
+<p>We want to know whether there is a difference in signal in the task volumes
+compared to the rest volumes. Take the mean over the task volumes and mean
+over the rest volumes. You should end up with two 3D volumes.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Create the mean volume across all the task volumes</span>
+<span class="c"># Then create the mean volume across all the rest volumes</span>
+<span class="c"># Hint: remember the `axis` keyword.</span>
+</pre></div>
+</div>
+<p>Now subtract the rest mean from the task mean to get a difference
+volume.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Create a difference volume</span>
+</pre></div>
+</div>
+<p>Show a slice over the third dimension of the difference volume, from
+somewhere around the center of the third axis:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Show a slice over the third dimension</span>
+</pre></div>
+</div>
+<p>This is the difference between activation and rest. It looks a little
+strange. Maybe there are some artefacts here.</p>
+</div>
+<div class="section" id="fixing-the-artefact">
+<h2>Fixing the artefact<a class="headerlink" href="#fixing-the-artefact" title="Permalink to this headline">¶</a></h2>
+<p>In the last exercise, you looked at this same 4D image to find volumes
+with unusually high variance / standard deviation.</p>
+<p>There is one volume in this 4D image with particularly high standard
+deviation.</p>
+<p>In fact, the bad volume is one of the rest volumes.</p>
+<p>Use your slicing skills to remove this volume from your selection of
+rest volumes.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Use slicing to remove outlier volume from rest volumes</span>
+</pre></div>
+</div>
+<p>Make a new mean for the rest volumes, and subtract this mean from the
+mean for the task volumes to make a new difference image.</p>
+<p>Give the new difference image a new name, so we can compare to the old
+difference image later.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Make new mean for rest volumes, subtract from task mean</span>
+</pre></div>
+</div>
+<p>Show an example slice from the new difference volume. Show the same
+slice from the old difference volume, using matplotlib.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># show same slice from old and new difference volume</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FMRI analysis fall 2015</a></h1>
+
+
+
+<p class="blurb">Fall 2015</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="day2_homework.html">Homework for day 2 of analysis</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2009-2015, Matthew Brett, JB Poline.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/first_activation.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
