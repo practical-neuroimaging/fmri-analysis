@@ -16,7 +16,7 @@ Day 3 of FMRI analysis
 * `Using the Python PATH
   <https://github.com/practical-neuroimaging/pna2015/blob/master/day9/using_pythonpath.ipynb>`_;
 * `Introduction to optimization topics
-  `https://github.com/practical-neuroimaging/pna2015/blob/master/day9/day9_introduction.ipynb`_;
+  <https://github.com/practical-neuroimaging/pna2015/blob/master/day9/day9_introduction.ipynb>`_;
 * `Working with rotations
   <https://github.com/practical-neuroimaging/pna2015/blob/master/day9/moreon_rotation.ipynb>`_
   (you will need :download:`rotated_volume.nii`);
