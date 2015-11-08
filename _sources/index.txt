@@ -5,3 +5,4 @@ FMRI analysis course - fall 2015
    :maxdepth: 2
 
    day2_homework
+   day3
