@@ -6,6 +6,7 @@ Day 3 of FMRI analysis
 * :doc:`github_forks`;
 * :doc:`feature_branches`;
 * Reviewing the homework exercises on Github;
+* The Python path;
 * `slice time correction
   <http://practical-neuroimaging.github.io/slice_timing.html>`_;
 * `Slice time correction exercise
@@ -13,8 +14,7 @@ Day 3 of FMRI analysis
 * `Optimizing in space
   <https://github.com/practical-neuroimaging/pna2015/blob/master/day9/optimizing_space.ipynb>`_
   (for which you will need :download:`ds107_sub012_t1r2.nii`);
-* `Using the Python PATH
-  <https://github.com/practical-neuroimaging/pna2015/blob/master/day9/using_pythonpath.ipynb>`_;
+* :doc:`using_pythonpath`;
 * `Introduction to optimization topics
   <https://github.com/practical-neuroimaging/pna2015/blob/master/day9/day9_introduction.ipynb>`_;
 * `Working with rotations

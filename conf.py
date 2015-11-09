@@ -36,6 +36,7 @@ extensions = [
 #    'alabaster',
     'sphinx.ext.mathjax',
     'sphinx.ext.doctest',
+    'nb2plots.nbplots',
     'plot_directive',
     'texext.mathcode',
     'texext.math_dollar',
