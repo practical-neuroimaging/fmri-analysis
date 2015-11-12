@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Homework for day 3 of analysis &mdash; FMRI analysis fall 2015 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="FMRI analysis fall 2015 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Day 3 of FMRI analysis" href="day3.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="homework-for-day-3-of-analysis">
+<h1>Homework for day 3 of analysis<a class="headerlink" href="#homework-for-day-3-of-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="make-a-feature-branch-for-the-homework">
+<h2>Make a feature branch for the homework<a class="headerlink" href="#make-a-feature-branch-for-the-homework" title="Permalink to this headline">¶</a></h2>
+<p>First, change directory into your <code class="docutils literal"><span class="pre">fmri-methods-2013</span></code> directory.</p>
+<p>Fetch the upstream changes with the homework with:</p>
+<div class="highlight-python"><div class="highlight"><pre>git fetch origin
+</pre></div>
+</div>
+<p>Make a new feature branch to work on with:</p>
+<div class="highlight-python"><div class="highlight"><pre>git branch day3-homework origin/master
+</pre></div>
+</div>
+<p>Connect this branch with your own fork with:</p>
+<div class="highlight-python"><div class="highlight"><pre>git checkout day3-homework
+git push your-github-username day3-homework --set-upstream
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-started-with-the-ipython-notebook">
+<h2>Getting started with the IPython notebook<a class="headerlink" href="#getting-started-with-the-ipython-notebook" title="Permalink to this headline">¶</a></h2>
+<p>Go to your <code class="docutils literal"><span class="pre">fmri-methods-2015</span></code> repository and change directory (in the
+terminal) to the <code class="docutils literal"><span class="pre">day3</span></code> folder.</p>
+<p>You&#8217;ll find some <a class="reference external" href="http://ipython.org/notebook.html">IPython notebooks</a> in
+that folder.</p>
+<p>Make sure you have the IPythono notebook installed.  Check by running
+<code class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span></code> from the command line.  If you installed using Anaconda,
+this should work.  If you installed using more standard methods (Python.org
+installer on Mac, Linux package manager) then try:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install ipython[notebook]
+</pre></div>
+</div>
+<p>from the command line.  Please let us know if that does not work for you, we
+will try and fix it.</p>
+</div>
+<div class="section" id="review-and-extend-slice-timing">
+<h2>Review and extend slice timing<a class="headerlink" href="#review-and-extend-slice-timing" title="Permalink to this headline">¶</a></h2>
+<p>Review the page on <a class="reference external" href="http://practical-neuroimaging.github.io/slice_timing.html">slice time correction</a> that we looked
+at on Monday.</p>
+<p>Work through the exercises in the notebook <code class="docutils literal"><span class="pre">slice_timing.ipynb</span></code>.  The
+solutions are in <code class="docutils literal"><span class="pre">slice_timing_solutions.ipynb</span></code>.</p>
+<p>Now you know all about slice timing your job is to write a Python script to
+run slice timing on a 4D image.</p>
+<p>Edit <cite>slice_time_image.py</cite> to implement linear slice timing on an image file.
+Check the script runs with <code class="docutils literal"><span class="pre">python</span> <span class="pre">slice_time_image.py</span>
+<span class="pre">ds107_sub012_t1r2.nii</span></code>.  You can run the script interactively in the IPython
+console with <code class="docutils literal"><span class="pre">run</span> <span class="pre">slice_time_image.py</span> <span class="pre">ds107_sub012_t1r2.nii</span></code>.</p>
+<p>When you have finished, <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></code> your edits to <code class="docutils literal"><span class="pre">slice_time_image.py</span></code>,
+commit, push up to your github fork, and them make a pull request to the main
+repository.  I will review these as they come in.</p>
+<p>Feel free to put up questions or point out problems using the <a class="reference external" href="https://github.com/practical-neuroimaging/fmri-methods-2015/issues">Github issues</a> for our
+repository.</p>
+</div>
+<div class="section" id="reading">
+<h2>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h2>
+<p>Read:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/practical-neuroimaging/pna2015/blob/master/day9/optimizing_space.ipynb">Optimizing in space</a>.
+There is a copy of this notebook in your <code class="docutils literal"><span class="pre">day3</span></code> repository if you want to
+try running it interactively;</li>
+<li>About the image affine and <a class="reference external" href="http://nipy.org/nibabel/coordinate_systems.html">Coordinate transformations</a>.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FMRI analysis fall 2015</a></h1>
+
+
+
+<p class="blurb">Fall 2015</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="day2_homework.html">Homework for day 2 of analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="day3.html">Day 3 of FMRI analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Homework for day 3 of analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#make-a-feature-branch-for-the-homework">Make a feature branch for the homework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-the-ipython-notebook">Getting started with the IPython notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#review-and-extend-slice-timing">Review and extend slice timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reading">Reading</a></li>
+</ul>
+</li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2009-2015, Matthew Brett, JB Poline.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/day3_homework.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
