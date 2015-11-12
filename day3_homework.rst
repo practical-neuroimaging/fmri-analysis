@@ -61,6 +61,10 @@ When you have finished, ``git add`` your edits to ``slice_time_image.py``,
 commit, push up to your github fork, and them make a pull request to the main
 repository.  I will review these as they come in.
 
+Feel free to put up questions or point out problems using the `Github issues
+<https://github.com/practical-neuroimaging/fmri-methods-2015/issues>`_ for our
+repository.
+
 Reading
 =======
 
