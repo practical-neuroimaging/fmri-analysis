@@ -7,6 +7,10 @@ Day 4 of FMRI analysis
 * :doc:`using_pythonpath`;
 * Putting ``for_exercises`` onto the ``PYTHONPATH``;
 * Revision on rotations, scaling, cost functions, resampling, assert;
+
+    * Some exercises on rotations and inverses;
+
+* :doc:`nib_affines`;
 * Exercise ``optimizing_affines``;
 * :download:`introduction_to_normalization.pdf`;
 * On `voxel time courses
