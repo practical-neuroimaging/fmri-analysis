@@ -257,6 +257,17 @@ structural image:
     >>> mat, vec = nib.affines.to_matvec(struct_vox2mean_vox)
     >>> resampled_mean = affine_transform(mean_bold_data, mat, vec, output_shape=structural_data.shape)
 
+To display the plots we first set the plot default to greyscale colormap and
+nearest-neighbor interpolation:
+
+.. nbplot::
+
+    >>> # - set gray colormap and nearest neighbor interpolation by default
+    >>> plt.rcParams['image.cmap'] = 'gray'
+    >>> plt.rcParams['image.interpolation'] = 'nearest'
+
+Then we show the interpolated (resampled) data:
+
 .. nbplot::
 
     >>> # Show resampled data
@@ -264,8 +275,6 @@ structural image:
     >>> axes[0].imshow(resampled_mean[:, :, 150])
     >>> axes[1].imshow(structural_data[:, :, 150])
     ...
-
-
 
 We get the exact same effect with ``map_coordinates`` if we create the
 voxel coordinates ourselves, and apply the transform to them:

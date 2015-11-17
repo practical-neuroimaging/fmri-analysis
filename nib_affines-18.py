@@ -1,5 +1,3 @@
-# Show resampled data
-fig, axes = plt.subplots(1, 2, figsize=(10, 5))
-axes[0].imshow(resampled_mean[:, :, 150])
-axes[1].imshow(structural_data[:, :, 150])
-# ...
+# - set gray colormap and nearest neighbor interpolation by default
+plt.rcParams['image.cmap'] = 'gray'
+plt.rcParams['image.interpolation'] = 'nearest'

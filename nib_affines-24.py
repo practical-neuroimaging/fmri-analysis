@@ -1,5 +1,2 @@
-# Show resampled data
-fig, axes = plt.subplots(1, 2, figsize=(10, 5))
-axes[0].imshow(resampled_mean_again[:, :, 150])
-axes[1].imshow(structural_data[:, :, 150])
-# ...
+# Resample using map_coordinates
+resampled_mean_again = map_coordinates(mean_bold_data, coords_first_again)

@@ -246,6 +246,14 @@ structural image:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">resampled_mean</span> <span class="o">=</span> <span class="n">affine_transform</span><span class="p">(</span><span class="n">mean_bold_data</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">vec</span><span class="p">,</span> <span class="n">output_shape</span><span class="o">=</span><span class="n">structural_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>To display the plots we first set the plot default to greyscale colormap and
+nearest-neighbor interpolation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># - set gray colormap and nearest neighbor interpolation by default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;image.cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;image.interpolation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;nearest&#39;</span>
+</pre></div>
+</div>
+<p>Then we show the interpolated (resampled) data:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Show resampled data</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">resampled_mean</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">150</span><span class="p">])</span>
@@ -253,9 +261,9 @@ structural image:</p>
 <span class="gp">...</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//nib_affines-18.png">png</a>, <a class="reference external" href=".//nib_affines-18.hires.png">hires.png</a>, <a class="reference external" href=".//nib_affines-18.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//nib_affines-19.png">png</a>, <a class="reference external" href=".//nib_affines-19.hires.png">hires.png</a>, <a class="reference external" href=".//nib_affines-19.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/nib_affines-18.png" src="_images/nib_affines-18.png" />
+<img alt="_images/nib_affines-19.png" src="_images/nib_affines-19.png" />
 </div>
 <p>We get the exact same effect with <code class="docutils literal"><span class="pre">map_coordinates</span></code> if we create the
 voxel coordinates ourselves, and apply the transform to them:</p>
@@ -294,9 +302,9 @@ voxel coordinates ourselves, and apply the transform to them:</p>
 <span class="gp">...</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//nib_affines-24.png">png</a>, <a class="reference external" href=".//nib_affines-24.hires.png">hires.png</a>, <a class="reference external" href=".//nib_affines-24.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//nib_affines-25.png">png</a>, <a class="reference external" href=".//nib_affines-25.hires.png">hires.png</a>, <a class="reference external" href=".//nib_affines-25.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/nib_affines-24.png" src="_images/nib_affines-24.png" />
+<img alt="_images/nib_affines-25.png" src="_images/nib_affines-25.png" />
 </div>
 </div>
 </div>
@@ -321,6 +329,7 @@ voxel coordinates ourselves, and apply the transform to them:</p>
 <li class="toctree-l1"><a class="reference internal" href="day2_homework.html">Homework for day 2 of analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="day3.html">Day 3 of FMRI analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="day3_homework.html">Homework for day 3 of analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="day4.html">Day 4 of FMRI analysis</a></li>
 </ul>
 
 

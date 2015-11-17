@@ -15,7 +15,6 @@ Day 4 of FMRI analysis
 * `Function are objects
   <https://github.com/practical-neuroimaging/pna2015/blob/master/day9/functions_are_objects.ipynb>`_;
 * :doc:`affines_inverses`;
-* :doc:`nib_affines`;
 * `Introduction to optimization exercise
   <https://github.com/practical-neuroimaging/fmri-methods-2015/blob/master/day4/intro_opt_aff.ipynb>`_;
 * Exercise ``optimizing_affines``;

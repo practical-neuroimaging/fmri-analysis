@@ -3,6 +3,7 @@ Affines and inverses
 ####################
 
 .. nbplot::
+    :include-source: false
 
     import os
     import sys
