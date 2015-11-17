@@ -10,7 +10,13 @@ Day 4 of FMRI analysis
 
     * Some exercises on rotations and inverses;
 
-* :doc:`nib_affines`;
+* `Rotations matrices, resampling, affine_transform
+  <https://github.com/practical-neuroimaging/fmri-methods-2015/blob/master/day4/resampling_background.ipynb>`_;
+* `Function are objects
+  <https://github.com/practical-neuroimaging/pna2015/blob/master/day9/functions_are_objects.ipynb>`_;
+* :doc:`affines_inverses`;
+* `Introduction to optimization exercise
+  <https://github.com/practical-neuroimaging/fmri-methods-2015/blob/master/day4/intro_opt_aff.ipynb>`_;
 * Exercise ``optimizing_affines``;
 * :download:`introduction_to_normalization.pdf`;
 * On `voxel time courses
@@ -28,7 +34,7 @@ Day 4 of FMRI analysis
 Solutions
 ---------
 
-* Solutions to `basic linear modeling
+* `Solutions to basic linear modeling
   <http://www.jarrodmillman.com/rcsds/lectures/multi_model_solutions.html>`_.
 
 .. include:: links_names.inc

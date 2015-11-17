@@ -6,10 +6,19 @@ We often want to apply an affine to an array of coordinates, where the
 last axis of the array is length 3, containing the x, y and z
 coordinates.
 
+.. nbplot::
+    :include-source: false
+
+    import os
+    import sys
+    sys.path.append(os.path.join('..', 'code'))
+
 Nibabel uses ``nibabel.affines.apply_affine`` for this.
 
 .. nbplot::
 
+    >>> import numpy as np
+    >>> import numpy.linalg as npl
     >>> import nibabel as nib
 
 .. nbplot::
@@ -106,13 +115,12 @@ pixel. For example, the coordinate of the first element in the array is
 
     >>> i_coords, j_coords = np.meshgrid(range(5), range(4), indexing='ij')
     >>> print('i_coords', i_coords)
-    >>> print('j_coords', j_coords)
-
     i_coords [[0 0 0 0]
      [1 1 1 1]
      [2 2 2 2]
      [3 3 3 3]
      [4 4 4 4]]
+    >>> print('j_coords', j_coords)
     j_coords [[0 1 2 3]
      [0 1 2 3]
      [0 1 2 3]
@@ -135,11 +143,10 @@ coordinate:
 .. nbplot::
 
     >>> print(coordinate_grid[:, 0, 0])
-    >>> print(coordinate_grid[:, 1, 0])
-    >>> print(coordinate_grid[:, 0, 1])
-
     [0 0]
+    >>> print(coordinate_grid[:, 1, 0])
     [1 0]
+    >>> print(coordinate_grid[:, 0, 1])
     [0 1]
 
 This then is the coordinate grid implied by a shape of (5, 4).
@@ -159,11 +166,10 @@ coordinate grid:
 .. nbplot::
 
     >>> print(coordinate_grid[:, 0, 0])  # look up new coordinate for (0, 0)
-    >>> print(coordinate_grid[:, 1, 0])  # look up new coordinate for (1, 0)
-    >>> print(coordinate_grid[:, 0, 1])  # look up new coordinate for (0, 1)
-
     [2 0]
+    >>> print(coordinate_grid[:, 1, 0])  # look up new coordinate for (1, 0)
     [3 0]
+    >>> print(coordinate_grid[:, 0, 1])  # look up new coordinate for (0, 1)
     [2 1]
 
 This means we can use these coordinate grids as a *mapping* from an
@@ -184,13 +190,12 @@ As you can imagine, meshgrid extends simply to three dimensions or more:
 .. nbplot::
 
     >>> print(coordinate_grid[:, 0, 0, 0])
-    >>> print(coordinate_grid[:, 1, 0, 0])
-    >>> print(coordinate_grid[:, 0, 1, 0])
-    >>> print(coordinate_grid[:, 0, 0, 1])
-
     [0 0 0]
+    >>> print(coordinate_grid[:, 1, 0, 0])
     [1 0 0]
+    >>> print(coordinate_grid[:, 0, 1, 0])
     [0 1 0]
+    >>> print(coordinate_grid[:, 0, 0, 1])
     [0 0 1]
 
 General resampling between images with ``scipy.ndimage.map_coordinates``
@@ -252,6 +257,17 @@ structural image:
     >>> mat, vec = nib.affines.to_matvec(struct_vox2mean_vox)
     >>> resampled_mean = affine_transform(mean_bold_data, mat, vec, output_shape=structural_data.shape)
 
+To display the plots we first set the plot default to greyscale colormap and
+nearest-neighbor interpolation:
+
+.. nbplot::
+
+    >>> # - set gray colormap and nearest neighbor interpolation by default
+    >>> plt.rcParams['image.cmap'] = 'gray'
+    >>> plt.rcParams['image.interpolation'] = 'nearest'
+
+Then we show the interpolated (resampled) data:
+
 .. nbplot::
 
     >>> # Show resampled data
@@ -259,8 +275,6 @@ structural image:
     >>> axes[0].imshow(resampled_mean[:, :, 150])
     >>> axes[1].imshow(structural_data[:, :, 150])
     ...
-
-
 
 We get the exact same effect with ``map_coordinates`` if we create the
 voxel coordinates ourselves, and apply the transform to them:
